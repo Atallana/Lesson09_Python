@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy import text
 
+
 class SubjectTable:
     __scripts = {
         "INSERT_INTO": text("INSERT INTO subject (subject_title) VALUES (:subject_title)"),

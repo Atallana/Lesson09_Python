@@ -1,9 +1,9 @@
 import pytest
 from SubjectTable import SubjectTable
-from SubjectTable import db
 
 
-db_connection_string = "postgresql://postgres:@localhost:5432/QA"
+db_connection_string = "postgresql://postgres:1809@localhost:5432/QA"
+db = SubjectTable(db_connection_string)
 
 # Добавить сущность: insert
 def test_insert():
@@ -14,6 +14,7 @@ def test_insert():
     
     # Проверяем, что объект успешно создался
     assert result is not None
+
     # Очищаем за собой БД после теста
     db.delete_subject(subject)
 
@@ -24,7 +25,7 @@ def test_update():
     db.insert_subject(subject)
     
     new_subject = "NEW_SUBJECT_2"
-    updated = db.update_subject(new_subject)  # Передаем новое значение или старое+новое, в зависимости от вашей реализации
+    updated = db.update_subject(new_subject)
     
     # Проверяем, что название действительно изменилось
     assert updated["subject"] == new_subject
@@ -43,3 +44,6 @@ def test_delete():
     # Проверяем корректность ответа об удалении
     assert deleted["subject"] == subject
     assert deleted["detail"] == "Компания успешно удалена"
+
+if __name__ == "__main__":
+    test_insert()
